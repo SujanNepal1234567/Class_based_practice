@@ -5,8 +5,8 @@ class Burger:
     A class to represent a burger.
     
     Atrributes:
-        base_price (float): The base price of the burger.
-        base_ingredients (list): List of base ingredients.
+        __base_price (float): The base price of the burger.
+        __base_ingredients (list): List of base ingredients.
         burger_menu (dict): Menu of available burger types.
         
     Methods:
@@ -16,27 +16,30 @@ class Burger:
     """
     
     # Class Variables (fields)
-    base_price: float = 5
-    base_ingredients: list[str] = ["Bun", "Tomato", "Lettuce", ]
+    # "__" represents private fields
+    __base_price: float = 5
+    __base_ingredients: list[str] = ["Bun", "Tomato", "Lettuce", ]
     burger_menu: dict[str, list[str]] = {
-        "Cheeseburger": ["Beef patty", "Cheese", "Ketchup", "Mustard"],
+        "Cheese Burger": ["Beef patty", "Cheese", "Ketchup", "Mustard"],
         "Veggie Burger": ["Veggie patty", "Onion", "Mayonnaise"],
         "Chicken Burger": ["Chicken patty", "Mayonnaise", "Pickles"],
         "Fish Burger": ["Fish patty", "Tartar sauce", "Pickles"]
     }
     
     # Constructor
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes a new instance of the Burger class.
         """
         pass
     
-    # Static method to print burger menu
-    @staticmethod
-    def show_menu():
+    # Class method to print burger menu
+    @classmethod
+    def show_menu(cls) -> None:
         """
         Prints the menu of available burgers and their ingredients.
+        
+        This is a class method.
         
         Args:
             None.
@@ -51,8 +54,8 @@ class Burger:
         for burger_type, ingredients in Burger.burger_menu.items():
             print(f"{burger_type}: {', '.join(ingredients)}")
     
-    # Method to place order
-    def place_order(self, burger_type: str):
+    # Instance method to place order
+    def place_order(self, burger_type: str) -> None:
         """
         Places an order for a burger and calculates the price and ingredients of the burger.
         
@@ -63,16 +66,19 @@ class Burger:
         Returns:
             None.
             
-        Raises:
-            None.
+         Raises:
+            ValueError: If the burger_type is not available in the burger menu.
         """
+        if burger_type not in Burger.burger_menu:
+            raise ValueError(f"{burger_type} is not available in the burger menu.")
+        
         self.burger_type = burger_type
-        self.ingredients = list(set(self.base_ingredients + self.burger_menu[burger_type]))
-        self.price = self.base_price + 5
-        print(f"You have ordered a {self.burger_type} for {self.price} dollars.")
+        self.ingredients = list(set(self.__base_ingredients + self.burger_menu[burger_type]))
+        self.price = self.__base_price + 5
+        print(f"\nYou have ordered a {self.burger_type} for {self.price} dollars.")
     
-    # Method to make burger
-    def make_burger(self):
+    # Instance method to make burger
+    def make_burger(self) -> None:
         """
         Makes a burger and prints a message indicating that the burger is ready.
         
@@ -85,7 +91,25 @@ class Burger:
         Raises:
             None.
         """
-        print(f"Making your {self.burger_type} burger with ingredients => {', '.join(self.ingredients)}.")
-        print("\nDone! Enjoy your burger!")
+        print(f"\nMaking your {self.burger_type} burger with ingredients => {', '.join(self.ingredients)}.")
+        print("\nDone! Enjoy your burger!\n")
+        
+    # Static method to give feedback
+    @staticmethod
+    def submit_feedback() -> None:
+        """
+        A static method to submit feedback.
+
+        Args:
+            None.
+
+        Returns:
+            None.
+        
+        Raises:
+            None.
+        """
+        feedback_prompt = input("How was your burger? \n=> ")
+        print("\nFeedback Submitted. Thank you!!!")
     
     
