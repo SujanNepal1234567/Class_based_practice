@@ -16,9 +16,7 @@ class Burger:
     """
     
     # Class Variables (fields)
-    # "__" represents private fields
-    __base_price: float = 5
-    __base_ingredients: list[str] = ["Bun", "Tomato", "Lettuce", ]
+    # "__fieldname" represents private fields
     burger_menu: dict[str, list[str]] = {
         "Cheese Burger": ["Beef patty", "Cheese", "Ketchup", "Mustard"],
         "Veggie Burger": ["Veggie patty", "Onion", "Mayonnaise"],
@@ -26,12 +24,14 @@ class Burger:
         "Fish Burger": ["Fish patty", "Tartar sauce", "Pickles"]
     }
     
+    __base_ingredients: list[str] = ["Bun", "Tomato", "Lettuce", ]  # Private class method
+    
     # Constructor
     def __init__(self) -> None:
         """
         Initializes a new instance of the Burger class.
         """
-        pass
+        self.base_price: float = 5  # Instance variable
     
     # Class method to print burger menu
     @classmethod
@@ -74,7 +74,7 @@ class Burger:
         
         self.burger_type = burger_type
         self.ingredients = list(set(self.__base_ingredients + self.burger_menu[burger_type]))
-        self.price = self.__base_price + 5
+        self.price = self.base_price + 5
         print(f"\nYou have ordered a {self.burger_type} for {self.price} dollars.")
     
     # Instance method to make burger
@@ -110,6 +110,4 @@ class Burger:
             None.
         """
         feedback_prompt = input("How was your burger? \n=> ")
-        print("\nFeedback Submitted. Thank you!!!")
-    
-    
+        print("\nFeedback Submitted. Thank you!!!") 
